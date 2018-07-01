@@ -1,0 +1,53 @@
+Below you will find code samples which can be used to access all possible features of the Kochava tracker. Once you've initialized the tracker these methods can be called anywhere else in your app:
+
+// send an event with name only
+Tracker.SendEvent("In App Purchase Interest");
+
+// send an event with name and info string
+Tracker.SendEvent("Game Over", "The Deep Dark Forest");
+
+// send an event with standard parameters (choose any parameters you like for your event)
+var myEvent = new KochavaEvent(KochavaEventType.Purchase);
+myEvent.name = "Amazing Sword of Mediocrity";
+myEvent.price = .99f;
+myEvent.currency = "USD";
+Tracker.SendEvent(myEvent);
+
+// send an identity link
+var idlink = new Dictionary<string, string>();
+idlink.Add("User Name", "Ljenkins");
+idlink.Add("Full Name", "Leroy Jenkins");
+Tracker.SendIdentityLink(idlink);
+
+// toggle app limit ad tracking
+Tracker.SetAppLimitAdTracking(false);
+
+// retrieve your Kochava device ID
+Debug.Log("My Device ID: " + Tracker.GetKochavaDeviceId());
+
+// retrieve attribution data (if requested and available)
+Debug.Log("Attribution Data: " + Tracker.GetAttributionData());
+
+// send a deep link (iOS supports the source app as well)
+Tracker.SendDeepLink("a_deep_link_uri");
+
+// Android-only methods:
+
+// sent an event with receipt from the google play store in Android
+Tracker.Android.SendEventWithGooglePlayStoreReceipt("receipt event name", "receipt event info", "Google Play Store purchase data", "Google Play Store purchase data signature");
+
+// iOS-only methods:
+
+// send an event with receipt from the App Store in iOS
+Tracker.iOS.SendEventWithiOSAppStoreReceipt("receipt event name", "receipt event info", "a base64 encoded receipt data string");
+
+// Attribution callback:
+// For iOS, you must use the sample method below to receive a callback (simply copy and paste it into your app where you'd like to use it, but do not change the name).
+// For Android, copy the sample method below or create one with the same signature. Within Kochava.cs un-comment the following line and pass it as such: Tracker.Android.SetAttributionHandler(KochavaAttributionListener);
+/* SAMPLE METHOD:
+void KochavaAttributionListener(string msg)
+{
+    // do something with the attribution data:
+    Debug.Log(">>> Kochava Attribution Received: " + msg);
+}
+*/
