@@ -22,13 +22,14 @@ public class CommonBox : MonoBehaviour {
     {
 
         DesNum++;
-        if(DesNum >= 3)
+        if(DesNum >= DESMAX)
         {
             _destoryer.enabled = true;
         }
     }
 
     public int DesNum = 0;
+    public int DESMAX = 3;
 
 
     // Use this for initialization
