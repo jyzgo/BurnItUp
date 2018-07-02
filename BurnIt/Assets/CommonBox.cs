@@ -7,9 +7,11 @@ public class CommonBox : MonoBehaviour {
     private void Awake()
     {
         _des = GetComponent<D2dDestructible>();
+        _destoryer = GetComponent<D2dDestroyer>();
     }
 
     D2dDestructible _des;
+    D2dDestroyer _destoryer;
 
     public void Beburn(Vector2 pos)
     {
@@ -18,8 +20,16 @@ public class CommonBox : MonoBehaviour {
 
     public void AddExpNum()
     {
-        Debug.Log("111");
+
+        DesNum++;
+        if(DesNum >= 3)
+        {
+            _destoryer.enabled = true;
+        }
     }
+
+    public int DesNum = 0;
+
 
     // Use this for initialization
     void Start () {
