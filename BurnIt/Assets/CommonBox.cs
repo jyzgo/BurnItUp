@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Destructible2D;
+using System;
+
 [RequireComponent(typeof(D2dDestructible))]
 public class CommonBox : MonoBehaviour {
     private void Awake()
@@ -17,7 +19,6 @@ public class CommonBox : MonoBehaviour {
     {
        
     }
-
     public void AddExpNum()
     {
 
@@ -32,13 +33,12 @@ public class CommonBox : MonoBehaviour {
     public int DESMAX = 3;
 
 
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
+    HashSet<Vector2> _firePos = new HashSet<Vector2>();
+    internal void AddFire(Vector2 explosionPosition)
+    {
+         FireMgr.Current.GenFirePoint(this,explosionPosition);
+
+       
+    }
 }
