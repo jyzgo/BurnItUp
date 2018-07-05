@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,13 +11,33 @@ public class Fire : MonoBehaviour {
         _sys = GetComponent<ParticleSystem>();
     }
     // Use this for initialization
-    void Start () {
-        
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
+
+    void Update()
+    {
+
+        transform.position = _firePoint.transform.position + Vector3.up * 0.8f;
+        if (Time.time > burstTime + FIRE_INTERVAL)
+        {
+            burstTime = Time.time;
+            var box = _firePoint.GetBox();
+            if (box != null)
+            {
+                box.GetBurnt(_firePoint);
+            }
+        }
+ 
+
+
+
+    }
+
+    const float FIRE_INTERVAL = 1f;
+    float burstTime = 0f;
+
+    FirePoint _firePoint;
+    internal void SetFirePoint(FirePoint firePoint)
+    {
+        _firePoint = firePoint;
+    }
 }

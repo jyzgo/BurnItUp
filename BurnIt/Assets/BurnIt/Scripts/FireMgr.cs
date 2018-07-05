@@ -8,34 +8,26 @@ public class FireMgr : MonoBehaviour {
     public static FireMgr Current;
     public GameObject FirePrefab;
     public GameObject FirePointPrefab;
+    public GameObject Explosion;
     private void Awake()
     {
         Current = this;
     }
 
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
 
-		
-	}
-
-    internal void AddFire(CommonBox commonBox)
-    {
-    }
 
     internal void GenFirePoint(CommonBox commonBox,Vector2 pos)
     {
         var firePoint = Instantiate<GameObject>(FirePointPrefab);
-        var fireSc = firePoint.GetComponent<FirePoint>();
+        var firePointSc = firePoint.GetComponent<FirePoint>();
         firePoint.transform.SetParent(commonBox.transform);
         firePoint.transform.position = pos;
         var fire = Instantiate<GameObject>(FirePrefab);
-        fireSc.AddFire(fire);
+        var fireSc = fire.GetComponent<Fire>();
+        fireSc.SetFirePoint(firePointSc);
+        
+        firePointSc.AddFire(fire);
+        firePointSc.AddBox(commonBox);
     }
 
 }

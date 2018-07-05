@@ -8,18 +8,33 @@ using System;
 public class CommonBox : MonoBehaviour {
     private void Awake()
     {
-        _des = GetComponent<D2dDestructible>();
+        _destructible = GetComponent<D2dDestructible>();
         _destoryer = GetComponent<D2dDestroyer>();
     }
 
-    D2dDestructible _des;
+    D2dDestructible _destructible;
     D2dDestroyer _destoryer;
 
-    public void Beburn(Vector2 pos)
+    const int FractureCount = 2;
+    internal void GetBurnt(FirePoint firePoint)
     {
-       
+        if (_destructible != null)
+        {
+            // Register split event
+          //  _destructible.OnEndSplit.AddListener(OnEndSplit);
+
+            // Split via fracture
+            D2dQuadFracturer.Fracture(_destructible, FractureCount, 0.5f);
+
+            // Unregister split event
+            //_destructible.OnEndSplit.RemoveListener(OnEndSplit);
+        }
+            AddExpNum();
     }
-    public void AddExpNum()
+
+
+
+    void AddExpNum()
     {
 
         DesNum++;
