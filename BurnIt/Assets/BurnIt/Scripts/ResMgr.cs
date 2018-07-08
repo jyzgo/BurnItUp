@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class ResMgr : MonoBehaviour {
 
-    public GameObject Cube;
-
-    public GameObject Obstacle;
+    public static ResMgr Current;
+    private void Awake()
+    {
+        Current = this;
+    }
+    public GameObject SmallSquare;
+  
+   
 
 }
